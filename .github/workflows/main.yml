@@ -41,16 +41,13 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
-
-    - name: Get the commit hash
-      run: echo "::set-output name=commit_hash::${GITHUB_SHA}"
     
     - name: Build and push
       uses: docker/build-push-action@v5
       with:
         context: .
         push: true
-        tags: ywaychitaung/go-fortune:$GITHUB_SHA
+        tags: ywaychitaung/ci-cd-workshop:latest
 
     - name: Send GitHub Action trigger data to Slack workflow
       uses: rtCamp/action-slack-notify@v2
