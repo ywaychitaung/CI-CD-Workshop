@@ -6,20 +6,20 @@ on:
       - 'v[0-9]+.[0-9]+'
 
 jobs:
-  build:
-    if: startsWith(github.event.head_commit.message, '#norun') != true
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out the code
-        uses: actions/checkout@v4
+  CI-CD-Workshop:
+    # if: startsWith(github.event.head_commit.message, '#norun') != true
+    # runs-on: ubuntu-latest
+    # steps:
+    #   - name: Check out the code
+    #     uses: actions/checkout@v4
 
-      - name: Scan for Vulnerabilities
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: 'fs'
-          format: 'table'
-          severity: 'CRITICAL'
-          output: 'scan_report.txt'
+    #   - name: Scan for Vulnerabilities
+    #     uses: aquasecurity/trivy-action@master
+    #     with:
+    #       scan-type: 'fs'
+    #       format: 'table'
+    #       severity: 'CRITICAL'
+    #       output: 'scan_report.txt'
       
       # - name: Set up QEMU
       #   id: docker
@@ -39,7 +39,8 @@ jobs:
       #   with:
       #     push: true
       #     tags: user/app:latest
-
+    
+    steps:
       - name: Send GitHub Action trigger data to Slack workflow
         uses: slackapi/slack-github-action@v1.24.0
         with:
