@@ -43,72 +43,15 @@ jobs:
     #     tags: user/app:latest
 
     - name: Send GitHub Action trigger data to Slack workflow
-      id: slack
-      uses: slackapi/slack-github-action@v1.24.0
-      with:
-        payload: | 
-            {
-              "text": "GitHub Action build result: ",
-              "blocks": [
-                {
-                  "type": "header",
-                  "text": {
-                    "type": "plain_text",
-                    "text": "CI/CD Workshop"
-                  }
-                },
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Name:* ${{ env.Name }}"
-                    }
-                  ]
-                },
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Matriculation:* ${{ env.Matriculation }}"
-                    }
-                  ]
-                },
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Email:* ${{ env.Email }}"
-                    }
-                  ]
-                },
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Repository:* ${{ env.GitHub }}"
-                    }
-                  ]
-                },
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Image:* ${{ env.Docker }}"
-                    }
-                  ]
-                }
-              ]
-            }
+      uses: rtCamp/action-slack-notify@v2.1.0
       env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-        Name: "Yway Chit Aung"
-        Matriculation: "A0287270Y"
-        Email: "e1285216@u.nus.edu"
-        GitHub: "https://github.com/ywaychitaung/CI-CD-Workshop.git"
-        Docker: "https://hub.docker.com/repository/docker/ywaychitaung/ci-cd-workshop/general"
+          SLACK_TITLE: "Image build and signed"
+          SLACK_MESSAGE: |
+            Name: "Yway Chit Aung"
+            Matriculation: "A0287270Y"
+            Email: "e1285216@u.nus.edu"
+            GitHub: "https://github.com/ywaychitaung/CI-CD-Workshop.git"
+            Docker: "https://hub.docker.com/repository/docker/ywaychitaung/ci-cd-workshop/general"
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+            
+        
