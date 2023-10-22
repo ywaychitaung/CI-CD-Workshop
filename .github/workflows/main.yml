@@ -41,7 +41,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: user/app:latest
+        tags: ywaychitaung/ci-cd-workshop:latest
 
     - name: Send GitHub Action trigger data to Slack workflow
       uses: rtCamp/action-slack-notify@v2
