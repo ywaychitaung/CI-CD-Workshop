@@ -104,3 +104,11 @@ jobs:
                 }
               ]
             }
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        Name: "Yway Chit Aung"
+        Matriculation: "A0287270Y"
+        Email: "e1285216@u.nus.edu"
+        GitHub: "https://github.com/ywaychitaung/CI-CD-Workshop.git"
+        Docker: "https://hub.docker.com/repository/docker/ywaychitaung/ci-cd-workshop/general"
