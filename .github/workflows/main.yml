@@ -4,10 +4,10 @@ on:
   push:
     branches:
       - 'v[0-9]+.[0-9]+'
-  pull_request:
 
 jobs:
   build:
+    if: startsWith(github.event.head_commit.message, '#norun') != true
     runs-on: ubuntu-latest
     steps:
     - name: Scan for Vulnerabilities
@@ -23,6 +23,12 @@ jobs:
     - name: Check out the code
       uses: actions/checkout@v3
 
+    - name: Install cosign
+      if: github.event_name != 'pull_request'
+      uses: sigstore/cosign-installer@6e04d228eb30da1757ee4e1dd75a0ec73a653e06 #v3.1.1
+      with:
+        cosign-release: 'v2.1.1'
+
     - name: Set up QEMU
       id: docker
       uses: docker/setup-qemu-action@v3
@@ -35,13 +41,16 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+    - name: Get the commit hash
+      run: echo "::set-output name=commit_hash::${GITHUB_SHA}"
     
     - name: Build and push
       uses: docker/build-push-action@v5
       with:
         context: .
         push: true
-        tags: ywaychitaung/go-fortune:${{ GITHUB_SHA }}
+        tags: ywaychitaung/go-fortune:$GITHUB_SHA
 
     - name: Send GitHub Action trigger data to Slack workflow
       uses: rtCamp/action-slack-notify@v2
