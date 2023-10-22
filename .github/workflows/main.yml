@@ -18,7 +18,7 @@ jobs:
       with:
         scan-type: 'fs'
         format: 'table'
-        severity: 'CRITICAL'
+        severity: 'HIGH'
         output: 'scan_report.txt'
     
     # - name: Set up QEMU
