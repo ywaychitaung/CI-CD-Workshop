@@ -11,11 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Check out the code
-      id: checkout
       uses: actions/checkout@v4
 
     - name: Scan for Vulnerabilities
-      id: trivy
       uses: aquasecurity/trivy-action@master
       with:
         scan-type: 'fs'
@@ -52,4 +50,5 @@ jobs:
             Email: e1285216@u.nus.edu
             GitHub: https://github.com/ywaychitaung/CI-CD-Workshop.git
             Docker: https://hub.docker.com/repository/docker/ywaychitaung/ci-cd-workshop/general
+          MSG_MINIMAL: ref, event, actions url, commit
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
