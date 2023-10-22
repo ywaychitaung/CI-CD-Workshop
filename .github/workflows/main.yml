@@ -43,7 +43,6 @@ jobs:
     - name: Send GitHub Action trigger data to Slack workflow
       uses: rtCamp/action-slack-notify@v2
       env:
-          MSG_MINIMAL: ref,event,actions url,commit
           SLACK_TITLE: "Image build and signed"
           SLACK_MESSAGE: |
             Name: Yway Chit Aung
