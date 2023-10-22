@@ -41,8 +41,9 @@ jobs:
     #     tags: user/app:latest
 
     - name: Send GitHub Action trigger data to Slack workflow
-      uses: rtCamp/action-slack-notify@v2.1.0
+      uses: rtCamp/action-slack-notify@v2
       env:
+          MSG_MINIMAL: ref,event,actions url,commit
           SLACK_TITLE: "Image build and signed"
           SLACK_MESSAGE: |
             Name: Yway Chit Aung
@@ -50,5 +51,4 @@ jobs:
             Email: e1285216@u.nus.edu
             GitHub: https://github.com/ywaychitaung/CI-CD-Workshop.git
             Docker: https://hub.docker.com/repository/docker/ywaychitaung/ci-cd-workshop/general
-          MSG_MINIMAL: ref, event, actions url, commit
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
