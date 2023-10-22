@@ -47,11 +47,11 @@ jobs:
       env:
           SLACK_TITLE: "Image build and signed"
           SLACK_MESSAGE: |
-            Name: "Yway Chit Aung"
-            Matriculation: "A0287270Y"
-            Email: "e1285216@u.nus.edu"
-            GitHub: "https://github.com/ywaychitaung/CI-CD-Workshop.git"
-            Docker: "https://hub.docker.com/repository/docker/ywaychitaung/ci-cd-workshop/general"
+            Name: Yway Chit Aung
+            Matriculation: A0287270Y
+            Email: e1285216@u.nus.edu
+            GitHub: https://github.com/ywaychitaung/CI-CD-Workshop.git
+            Docker: https://hub.docker.com/repository/docker/ywaychitaung/ci-cd-workshop/general
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
             
         
