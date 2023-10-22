@@ -10,9 +10,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Check out the code
-      uses: actions/checkout@v3
-
     - name: Scan for Vulnerabilities
       uses: aquasecurity/trivy-action@master
       with:
@@ -22,7 +19,10 @@ jobs:
         exit-code: '1'
         ignore-unfixed: true
         severity: 'CRITICAL'
-    
+
+    - name: Check out the code
+      uses: actions/checkout@v3
+
     - name: Set up QEMU
       id: docker
       uses: docker/setup-qemu-action@v3
@@ -39,6 +39,7 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v5
       with:
+        context: .
         push: true
         tags: user/app:latest
 
