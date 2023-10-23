@@ -18,7 +18,18 @@ jobs:
         format: 'table'
         exit-code: '1'
         ignore-unfixed: true
-        severity: 'CRITICAL'
+        severity: ${{ var.serverity }}
+    
+    - uses: MeilCli/slack-upload-file@v3
+      with:
+        slack_token: ${{ secrets.SLACK_TOKEN }}
+        channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
+        content: 'file content'
+        file_type: 'text'
+        file_name: 'text.txt'
+        title: 'title of file'
+        initial_comment: 'post by slack-upload-file'
+      
 
     - name: Check out the code
       uses: actions/checkout@v3
@@ -47,7 +58,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: ywaychitaung/ci-cd-workshop:latest
+        tags: ywaychitaung/ci-cd-workshop:${{ github.sha }}
 
     - name: Send GitHub Action trigger data to Slack workflow
       uses: rtCamp/action-slack-notify@v2
