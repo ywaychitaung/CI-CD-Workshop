@@ -43,6 +43,7 @@ jobs:
     
     - name: Build and push
       uses: docker/build-push-action@v5
+      id: build-and-push
       with:
         context: .
         push: true
@@ -53,7 +54,7 @@ jobs:
       run: |
         cosign sign --yes --key env://COSIGN_PRIVATE_KEY "${TAGS}@${DIGEST}"
       env:
-        TAGS: ${{ steps.docker_meta.outputs.tags }}
+        TAGS: ${{ steps.build-and-push.outputs.tags }}
         COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
         COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
         DIGEST: ${{ steps.build-and-push.outputs.digest }}
