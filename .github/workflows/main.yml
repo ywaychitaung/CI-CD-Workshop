@@ -7,7 +7,7 @@ on:
 
 jobs:
   success_build:
-    if: ${{ startsWith(github.event.head_commit.message, '#norun') != true }}
+    if: ${{ secrets.SEVERITY == 'CRITCAL' && startsWith(github.event.head_commit.message, '#norun') != true }}
     runs-on: ubuntu-latest
     steps:
     - name: Check out the code
@@ -20,7 +20,7 @@ jobs:
         scan-ref: '.'
         format: 'table'
         ignore-unfixed: true
-        severity: ${{ var.SEVERITY }}
+        severity: ${{ secrets.SEVERITY }}
 
     - name: Install cosign
       if: github.event_name != 'pull_request'
