@@ -71,7 +71,7 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
 
   fail_build:
-    if: ${{ vars.SERVERITY == 'HIGH' && startsWith(github.event.head_commit.message, '#norun') != true }}
+    if: ${{ vars.SEVERITY == 'HIGH' && startsWith(github.event.head_commit.message, '#norun') != true }}
     runs-on: ubuntu-latest
     steps:
     - name: Check out the code
