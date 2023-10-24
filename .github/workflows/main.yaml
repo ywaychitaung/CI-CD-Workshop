@@ -84,6 +84,7 @@ jobs:
     - name: Send GitHub Action trigger data to Slack workflow
       uses: rtCamp/action-slack-notify@v2
       env:
+          SLACK_COLOR: '#FF0000'
           SLACK_TITLE: "Scan failed - Yway Chit Aung"
           SLACK_MESSAGE: |
             Failed trivy scan, see uploaded report
