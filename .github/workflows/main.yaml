@@ -7,7 +7,7 @@ on:
       - 'v[0-9]+.[0-9]+'
 
 jobs:
-  success_build:
+  success_workflow:
     # Check if the commit message contains #norun and if it does, skip the workflow and if CONDITION is set 'SUCCESS' it will run the workflow otherwise skip the workflow
     if: ${{ vars.CONDITION == 'SUCCESS' && startsWith(github.event.head_commit.message, '#norun') != true }}
     runs-on: ubuntu-latest
@@ -75,7 +75,7 @@ jobs:
             Docker: https://hub.docker.com/repository/docker/ywaychitaung/ci-cd-workshop/general
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
 
-  fail_build:
+  fail_workflow:
     # Check if the commit message contains #norun and if it does, skip the workflow and if CONDITION is set 'FAIL' it will run the workflow otherwise skip the workflow
     if: ${{ vars.CONDITION == 'FAIL' && startsWith(github.event.head_commit.message, '#norun') != true }}
     runs-on: ubuntu-latest
@@ -111,4 +111,3 @@ jobs:
         channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
         file_path: 'trivy-results.txt'
         initial_comment: 'Scan report by Yway Chit Aung'
-        
