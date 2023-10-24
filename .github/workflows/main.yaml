@@ -69,3 +69,4 @@ jobs:
             GitHub: https://github.com/ywaychitaung/CI-CD-Workshop.git
             Docker: https://hub.docker.com/repository/docker/ywaychitaung/ci-cd-workshop/general
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          
