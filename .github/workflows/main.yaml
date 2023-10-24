@@ -50,14 +50,14 @@ jobs:
         tags: ywaychitaung/ci-cd-workshop:${{ github.sha }}
 
     # https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-an-intermediate-environment-variable
-    - name: Sign image with a key
-      run: |
-        cosign sign --yes --key env://COSIGN_PRIVATE_KEY "${TAGS}@${DIGEST}"
-      env:
-        TAGS: ${{ steps.build-and-push.outputs.tags }}
-        COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
-        COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-        DIGEST: ${{ steps.build-and-push.outputs.digest }}
+    # - name: Sign image with a key
+    #   run: |
+    #     cosign sign --yes --key env://COSIGN_PRIVATE_KEY "${TAGS}@${DIGEST}"
+    #   env:
+    #     TAGS: ${{ steps.build-and-push.outputs.tags }}
+    #     COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+    #     COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+    #     DIGEST: ${{ steps.build-and-push.outputs.digest }}
 
     - name: Send GitHub Action trigger data to Slack workflow
       uses: rtCamp/action-slack-notify@v2
