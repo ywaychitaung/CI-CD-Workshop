@@ -10,6 +10,9 @@ jobs:
     if: ${{ vars.SEVERITY == 'CRITICAL' && startsWith(github.event.head_commit.message, '#norun') != true }}
     runs-on: ubuntu-latest
     steps:
+    - name: Check out the code
+      uses: actions/checkout@v3
+
     - name: Scan for Vulnerabilities
       uses: aquasecurity/trivy-action@master
       with:
@@ -18,9 +21,6 @@ jobs:
         format: 'table'
         ignore-unfixed: true
         severity: ${{ vars.SEVERITY }}
-  
-    - name: Check out the code
-      uses: actions/checkout@v3
 
     - name: Install cosign
       if: github.event_name != 'pull_request'
@@ -74,6 +74,9 @@ jobs:
     if: ${{ vars.SERVERITY == 'HIGH' && startsWith(github.event.head_commit.message, '#norun') != true }}
     runs-on: ubuntu-latest
     steps:
+    - name: Check out the code
+      uses: actions/checkout@v3
+
     - name: Scan for Vulnerabilities
       uses: aquasecurity/trivy-action@master
       with:
@@ -84,9 +87,6 @@ jobs:
         severity: ${{ vars.SEVERITY }}
         output: 'trivy-report.txt'
         exit-code: '1'
-  
-    - name: Check out the code
-      uses: actions/checkout@v3
 
     - name: Install cosign
       if: github.event_name != 'pull_request'
