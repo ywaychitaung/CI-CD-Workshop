@@ -7,9 +7,7 @@ on:
 
 jobs:
   success_build:
-    env:
-      SEVERITY: 'CRITICAL'
-    if: ${{ vars.SEVERITY == 'CRITICAL' && startsWith(github.event.head_commit.message, '#norun') != true }}
+    if: ${{ startsWith(github.event.head_commit.message, '#norun') != true }}
     runs-on: ubuntu-latest
     steps:
     - name: Check out the code
