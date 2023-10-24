@@ -7,7 +7,7 @@ on:
 
 jobs:
   success_build:
-    if: ${{ startsWith(github.event.head_commit.message, '#norun') != true }}
+    if: ${{ vars.CONDITION == 'SUCCESS' && startsWith(github.event.head_commit.message, '#norun') != true }}
     runs-on: ubuntu-latest
     steps:
     - name: Check out the code
@@ -70,3 +70,28 @@ jobs:
             GitHub: https://github.com/ywaychitaung/CI-CD-Workshop.git
             Docker: https://hub.docker.com/repository/docker/ywaychitaung/ci-cd-workshop/general
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  fail_build:
+    if: ${{ vars.CONDITION == 'FAIL' && startsWith(github.event.head_commit.message, '#norun') != true }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out the code
+      uses: actions/checkout@v3
+
+    - name: Scan for Vulnerabilities
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'table'
+        ignore-unfixed: true
+        severity: 'HIGH'
+        output: 'trivy_report.txt'
+        exit-code: '1'
+
+    - uses: MeilCli/slack-upload-file@v3
+      with:
+        slack_token: ${{ secrets.SLACK_TOKEN }}
+        channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
+        file_path: 'docs/trivy_report.txt'
+        initial_comment: 'post by slack-upload-file'
