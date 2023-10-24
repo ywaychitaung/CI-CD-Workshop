@@ -20,7 +20,7 @@ jobs:
         scan-ref: '.'
         format: 'table'
         ignore-unfixed: true
-        severity: ${{ vars.SEVERITY }}
+        severity: ${{ var.SEVERITY }}
 
     - name: Install cosign
       if: github.event_name != 'pull_request'
