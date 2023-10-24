@@ -17,13 +17,9 @@ jobs:
       uses: aquasecurity/trivy-action@master
       with:
         scan-type: 'fs'
-        scan-ref: '.'
-        format: 'table'
-        ignore-unfixed: true
         severity: 'CRITICAL'
 
     - name: Install cosign
-      if: github.event_name != 'pull_request'
       uses: sigstore/cosign-installer@2.2.0
       with:
         cosign-release: 'v2.2.0'
@@ -45,11 +41,9 @@ jobs:
       uses: docker/build-push-action@v5
       id: build-and-push
       with:
-        context: .
         push: true
         tags: ywaychitaung/ci-cd-workshop:${{ github.sha }}
 
-    # https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-an-intermediate-environment-variable
     - name: Sign image with a key
       run: |
         cosign sign --yes --key env://COSIGN_PRIVATE_KEY "${TAGS}@${DIGEST}"
@@ -82,9 +76,7 @@ jobs:
       uses: aquasecurity/trivy-action@master
       with:
         scan-type: 'fs'
-        scan-ref: '.'
-        format: 'table'
-        ignore-unfixed: true
+        format: ''
         severity: 'HIGH'
         output: 'trivy_report.txt'
         exit-code: '1'
@@ -93,5 +85,5 @@ jobs:
       with:
         slack_token: ${{ secrets.SLACK_TOKEN }}
         channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
-        file_path: 'docs/trivy_report.txt'
+        file_path: 'trivy_report.txt'
         initial_comment: 'post by slack-upload-file'
